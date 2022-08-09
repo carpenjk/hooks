@@ -1,7 +1,7 @@
 {
-  "name": "project-name",
+  "name": "@carpenjk/hooks",
   "version": "1.0.0",
-  "description": "This a description",
+  "description": "A library of custom hooks.",
   "main": "lib/index.js",
   "scripts": {
     "prebuild": "rimraf lib",
@@ -11,18 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carpenjk/project-name.git"
+    "url": "git+https://github.com/carpenjk/hooks.git"
   },
   "keywords": [
-    "keyword1",
-    "keyword2"
+    "react",
+    "hooks"
   ],
   "author": "Jeremy Carpenter",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/carpenjk/project-name/issues"
+    "url": "https://github.com/carpenjk/hooks/issues"
   },
-  "homepage": "https://github.com/carpenjk/project-name#readme",
+  "homepage": "https://github.com/carpenjk/hooks#readme",
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.18.10",

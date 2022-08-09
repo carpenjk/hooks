@@ -1,1 +1,1 @@
-export { default as MyComponent } from './components/MyComponent'
+export { useIsoLayoutEffect } from './hooks/useIsoLayoutEffect'
