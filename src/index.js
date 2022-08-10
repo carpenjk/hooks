@@ -1,6 +1,6 @@
 export { default as useIsoLayoutEffect } from './hooks/useIsoLayoutEffect'
 export { default as useAdjustForScrollBar } from './hooks/useAdjustForScrollBar'
-export { default as useAutoComplete } from './hooks/useAdjustForScrollBar'
+export { default as useAutoComplete } from './hooks/useAutoComplete'
 export { default as useElementSize } from './hooks/useElementSize'
 export { default as useForceUpdate } from './hooks/useForceUpdate'
 export { default as useHasMounted } from './hooks/useHasMounted'
