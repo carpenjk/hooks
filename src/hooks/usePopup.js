@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import useWindowSize from './UseWindowSize';
+import { useState, useEffect } from 'react'
+import useWindowSize from './useWindowSize'
 
 const usePopup = (popupMaxSceenWidth, isSearchFiltersOpen) => {
-  const windowSize = useWindowSize();
-  const [isPopup, setIsPopup] = useState(false);
+  const windowSize = useWindowSize()
+  const [isPopup, setIsPopup] = useState(false)
 
   useEffect(() => {
     windowSize.width <= popupMaxSceenWidth || isSearchFiltersOpen
       ? setIsPopup(true)
-      : setIsPopup(false);
-  }, [windowSize, isSearchFiltersOpen]);
+      : setIsPopup(false)
+  }, [windowSize, isSearchFiltersOpen])
 
-  return isPopup;
-};
+  return isPopup
+}
 
-export default usePopup;
+export default usePopup

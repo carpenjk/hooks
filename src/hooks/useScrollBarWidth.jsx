@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import useIsoLayoutEffect from './UseIsoLayoutEffect';
+import { useState } from 'react'
+import useIsoLayoutEffect from './useIsoLayoutEffect'
 
 const useScrollBarWidth = () => {
-  const [scrollBarWidth, setScrollBarWidth] = useState(17);
+  const [scrollBarWidth, setScrollBarWidth] = useState(17)
 
   useIsoLayoutEffect(() => {
-    setScrollBarWidth(window.innerWidth - document.documentElement.clientWidth);
-  }, []);
+    setScrollBarWidth(window.innerWidth - document.documentElement.clientWidth)
+  }, [])
 
-  return scrollBarWidth;
-};
+  return scrollBarWidth
+}
 
-export default useScrollBarWidth;
+export default useScrollBarWidth

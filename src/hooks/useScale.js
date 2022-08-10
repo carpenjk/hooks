@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import useIsoLayoutEffect from './UseIsoLayoutEffect';
+import { useState } from 'react'
+import useIsoLayoutEffect from './useIsoLayoutEffect'
 
 // Scales an element of a given reference based on given conditions
 // using element transform style
@@ -18,42 +18,42 @@ import useIsoLayoutEffect from './UseIsoLayoutEffect';
 //  onMouseLeave: function to pass to element onMouseLeave
 //  }
 const useScale = ({ elementRef, scaleUp, scale, scaleOnHover }) => {
-  const [override, setOverride] = useState(scaleUp);
-  function handleMouseEnter() {
+  const [override, setOverride] = useState(scaleUp)
+  function handleMouseEnter () {
     if (elementRef.current && scaleOnHover) {
-      elementRef.current.style.transform = `scale(${scale})`;
+      elementRef.current.style.transform = `scale(${scale})`
     }
   }
 
-  function handleMouseLeave() {
+  function handleMouseLeave () {
     if (elementRef.current && !scaleUp && !override && scaleOnHover) {
-      elementRef.current.style.transform = 'none';
+      elementRef.current.style.transform = 'none'
     }
   }
 
-  function overrideScale() {
-    setOverride(true);
+  function overrideScale () {
+    setOverride(true)
   }
-  function resetOverride() {
-    setOverride(false);
+  function resetOverride () {
+    setOverride(false)
   }
   useIsoLayoutEffect(() => {
     if (!elementRef.current) {
-      return;
+      return
     }
     if (override || scaleUp) {
-      elementRef.current.style.transform = `scale(${scale})`;
+      elementRef.current.style.transform = `scale(${scale})`
     } else {
-      elementRef.current.style.transform = 'none';
+      elementRef.current.style.transform = 'none'
     }
-  }, [scaleUp, override, elementRef, scaleOnHover]);
+  }, [scaleUp, override, elementRef, scaleOnHover])
 
   return {
     scale: overrideScale,
     unScale: resetOverride,
     onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
-  };
-};
+    onMouseLeave: handleMouseLeave
+  }
+}
 
-export default useScale;
+export default useScale

@@ -1,86 +1,82 @@
-import { useEffect, useState } from 'react';
-import useIsoLayoutEffect from './UseIsoLayoutEffect';
-import useHasMounted from './UseHasMounted';
+import { useEffect, useState } from 'react'
+import useIsoLayoutEffect from './useIsoLayoutEffect'
+import useHasMounted from './useHasMounted'
 
 const useLockBodyScroll = (hideScrollbar, isLocked) => {
-  const [scrollPosition, setScrollPosition] = useState();
-  const hasMounted = useHasMounted();
+  const [scrollPosition, setScrollPosition] = useState()
+  const hasMounted = useHasMounted()
   const [isBodyLocked, setIsBodyLocked] = useState(
     isLocked === undefined || isLocked === true
-  );
-  const [origOverflow, setOrigOverflow] = useState();
-  const [origPosition, setOrigPosition] = useState();
+  )
+  const [origOverflow, setOrigOverflow] = useState()
+  const [origPosition, setOrigPosition] = useState()
 
-  function scrollTo(pos) {
-    console.log('scrollTo');
+  function scrollTo (pos) {
+    console.log('scrollTo')
     if (hasMounted) {
-      console.log('scrollTo', pos);
-      window.scrollTo(0, pos);
+      console.log('scrollTo', pos)
+      window.scrollTo(0, pos)
     }
   }
 
-  function lockBody(scrollPos) {
+  function lockBody (scrollPos) {
     if (!hideScrollbar) {
       if (isBodyLocked) {
-        document.body.style.position = 'fixed';
-        document.body.style.overflowY = 'scroll';
+        document.body.style.position = 'fixed'
+        document.body.style.overflowY = 'scroll'
       }
     } else if (isBodyLocked) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     }
-    scrollTo(scrollPos);
+    scrollTo(scrollPos)
   }
 
-  function unLockBody(overflow, position, scrollPos) {
-    document.body.style.overflow = overflow;
-    document.body.style.position = position;
-    document.body.style.overflow = 'scroll';
-    document.body.style.position = 'relative';
-    scrollTo(scrollPos);
+  function unLockBody (overflow, position, scrollPos) {
+    document.body.style.overflow = overflow
+    document.body.style.position = position
+    document.body.style.overflow = 'scroll'
+    document.body.style.position = 'relative'
+    scrollTo(scrollPos)
   }
 
   useEffect(() => {
-    console.log('mounted');
-  }, []);
+    console.log('mounted')
+  }, [])
 
   useIsoLayoutEffect(() => {
     // Get body overflow
     const overflow = isBodyLocked
       ? window.getComputedStyle(document.body).overflow
-      : origOverflow;
+      : origOverflow
     const position = isBodyLocked
       ? window.getComputedStyle(document.body).position
-      : origPosition;
-    const scrollPos = isBodyLocked ? window.pageYOffset : scrollPosition;
-    console.log(
-      '🚀 ~ file: UseLockBodyScroll.js ~ line 51 ~ useIsoLayoutEffect ~ scrollPos',
-      scrollPos
-    );
+      : origPosition
+    const scrollPos = isBodyLocked ? window.pageYOffset : scrollPosition
 
     // set initial state
     if (isBodyLocked) {
-      setOrigOverflow(overflow);
-      setOrigPosition(position);
-      setScrollPosition(scrollPos);
+      setOrigOverflow(overflow)
+      setOrigPosition(position)
+      setScrollPosition(scrollPos)
       // Prevent scrolling on mount
-      lockBody(scrollPos);
+      lockBody(scrollPos)
     } else {
-      unLockBody(overflow, position, scrollPos);
+      unLockBody(overflow, position, scrollPos)
     }
-    scrollTo(scrollPos);
+    scrollTo(scrollPos)
     // Re-enable scrolling when component unmounts
     return () => {
-      unLockBody(overflow, position, scrollPos);
-    };
-  }, [isBodyLocked]);
+      unLockBody(overflow, position, scrollPos)
+    }
+  }, [isBodyLocked])
 
-  const lock = () => setIsBodyLocked(true);
-  const unlock = () => setIsBodyLocked(false);
+  const lock = () => setIsBodyLocked(true)
+  const unlock = () => setIsBodyLocked(false)
   return {
     lock,
     unlock,
-    scrollTo,
-  };
-};
+    scrollTo
+  }
+}
 
-export default useLockBodyScroll;
+export default useLockBodyScroll
