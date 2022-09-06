@@ -40,8 +40,8 @@
   "dependencies": {},
   "peerDependencies": {
     "styled-components": "^5.1.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^17.0.2 || ^18.0.0",
+    "react-dom": "^17.0.2 || ^18.0.0"
   },
   "optionalDependencies": {
     "use-debounce": "^7.0.1"
