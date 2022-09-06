@@ -1,101 +1,101 @@
-import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 
 // @param onInput: onInput can be a function or an array cotaining a function and debounce duration
 // [handleInput, 750]
 const useAutoComplete = (props) => {
-  const { values, onSelect, onInput, displayFunction } = props;
-  const [keyboardIndex, setKeyboardIndex] = useState(-1);
-  const [isOpen, setIsOpen] = useState(false);
+  const { values, onSelect, onInput, displayFunction } = props
+  const [keyboardIndex, setKeyboardIndex] = useState(-1)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const isInputDebounced = Array.isArray(onInput);
-  const _onInput = isInputDebounced ? onInput[0] : onInput;
-  const _dbValue = isInputDebounced ? onInput[1] : undefined;
+  const isInputDebounced = Array.isArray(onInput)
+  const _onInput = isInputDebounced ? onInput[0] : onInput
+  const _dbValue = isInputDebounced ? onInput[1] : undefined
 
-  function moveDown() {
+  function moveDown () {
     setKeyboardIndex((prev) => {
       if (prev < values.length - 1) {
-        return prev + 1;
+        return prev + 1
       }
-      return prev;
-    });
+      return prev
+    })
   }
-  function moveUp() {
+  function moveUp () {
     setKeyboardIndex((prev) => {
       if (prev > 0) {
-        return prev - 1;
+        return prev - 1
       }
-      return prev;
-    });
+      return prev
+    })
   }
-  function select(i) {
-    onSelect(values[i]);
-    setIsOpen(false);
-    setKeyboardIndex(-1);
+  function select (i) {
+    onSelect(values[i])
+    setIsOpen(false)
+    setKeyboardIndex(-1)
   }
-  function close() {
-    setIsOpen(false);
-    setKeyboardIndex(-1);
+  function close () {
+    setIsOpen(false)
+    setKeyboardIndex(-1)
   }
 
-  function _onInputChange(e) {
-    setIsOpen(true);
-    setKeyboardIndex(0);
+  function _onInputChange (e) {
+    setIsOpen(true)
+    setKeyboardIndex(0)
     if (_onInput) {
-      _onInput(e);
+      _onInput(e)
     }
-    return true;
+    return true
   }
 
-  const debouncedOnInput = useDebouncedCallback(_onInputChange, _dbValue);
-  function onInputChange(e) {
+  const debouncedOnInput = useDebouncedCallback(_onInputChange, _dbValue)
+  function onInputChange (e) {
     if (isInputDebounced) {
-      e.persist();
-      debouncedOnInput(e);
+      e.persist()
+      debouncedOnInput(e)
     } else {
-      _onInputChange(e);
+      _onInputChange(e)
     }
   }
 
-  function onClick(e) {
+  function onClick (e) {
     const valueIndex = values.findIndex(
       (value) => value === e.target.textContent
-    );
+    )
     if (valueIndex > -1) {
-      select(valueIndex);
+      select(valueIndex)
     }
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown (e) {
     switch (e.key) {
       case 'ArrowUp':
-        e.preventDefault();
-        moveUp();
-        break;
+        e.preventDefault()
+        moveUp()
+        break
       case 'ArrowDown':
-        e.preventDefault();
-        setIsOpen(true);
-        moveDown();
-        break;
+        e.preventDefault()
+        setIsOpen(true)
+        moveDown()
+        break
       case 'Enter':
-        e.preventDefault();
-        select(keyboardIndex);
-        break;
+        e.preventDefault()
+        select(keyboardIndex)
+        break
       case 'Escape':
-        e.preventDefault();
-        setIsOpen(false);
-        break;
+        e.preventDefault()
+        setIsOpen(false)
+        break
       case 'Tab':
-        setIsOpen(false);
-        break;
+        setIsOpen(false)
+        break
       default:
-        break;
+        break
     }
-    return true;
+    return true
   }
 
-  function getSuggestions() {
-    return values.map((val) => (displayFunction ? displayFunction(val) : val));
+  function getSuggestions () {
+    return values.map((val) => (displayFunction ? displayFunction(val) : val))
   }
   const acControl = {
     moveDown,
@@ -105,29 +105,29 @@ const useAutoComplete = (props) => {
     onSelect: select,
     onClick,
     getSuggestions,
-    displayFunction,
-  };
+    displayFunction
+  }
 
   const fields = {
     onKeyDown: handleKeyDown,
-    onInput: onInputChange,
-  };
+    onInput: onInputChange
+  }
 
   const acState = {
     values,
     keyboardIndex,
     setKeyboardIndex,
     isOpen,
-    setIsOpen,
-  };
+    setIsOpen
+  }
 
   return {
     fields,
     autoComplete: {
       acControl,
-      acState,
-    },
-  };
-};
+      acState
+    }
+  }
+}
 
-export default useAutoComplete;
+export default useAutoComplete
