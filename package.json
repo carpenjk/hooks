@@ -53,7 +53,7 @@
     "use-debounce": "^7.0.1"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "config": {
     "commitizen": {
